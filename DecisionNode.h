@@ -6,7 +6,7 @@
 #define DECISION_TREE_DECISIONNODE_H
 
 #include <string>
-#include <vector>
+#include <deque>
 #include <cstdint>
 #include <map>
 
@@ -15,10 +15,13 @@ public:
     const uint32_t MAX_DEPTH = 10;
 
     DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double bottom,
-                 double top, uint32_t depth, bool leaf, std::string type, std::vector<std::vector<std::string>>& data);
+                 double top, uint32_t depth, bool leaf, std::string type, std::deque<std::deque<char*>>& data);
     ~DecisionNode();
+
     double giniImpurity(double, bool);
     void findSplit();
+    void determineClass();
+    std::string analyze(double val);
 
 private:
     uint32_t attributeIndex;
@@ -29,9 +32,10 @@ private:
     DecisionNode* left;
     DecisionNode* right;
     bool leaf;
+    bool root;
     double split;
     std::string type;
-    std::vector<std::vector<std::string>> data;
+    std::deque<std::deque<char*>> data;
 };
 
 

@@ -5,21 +5,22 @@
 #ifndef UNTITLED_DECISIONTREE_H
 #define UNTITLED_DECISIONTREE_H
 
-#include <vector>
+#include <deque>
 #include <string>
 #include "DecisionNode.h"
 
 class DecisionTree {
 public:
-    DecisionTree(std::string, std::vector<std::vector<std::string>>);
+    DecisionTree(std::string, std::deque<std::deque<char*>>);
     ~DecisionTree();
 
     double findMax();
     double findMin();
+    std::string analyze(double val);
 private:
     std::string attribute;
     DecisionNode* root;
-    std::vector<std::vector<std::string>> data;
+    std::deque<std::deque<char*>> data;
     uint32_t attributeIndex;
 };
 

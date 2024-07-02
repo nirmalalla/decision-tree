@@ -5,8 +5,9 @@
 #include "DecisionTree.h"
 #include "DecisionNode.h"
 #include <algorithm>
+#include <deque>
 
-DecisionTree::DecisionTree(std::string attribute, std::vector<std::vector<std::string>> data) {
+DecisionTree::DecisionTree(std::string attribute, std::deque<std::deque<char*>> data) {
     this->attribute = attribute;
     this->data = data;
 
@@ -16,8 +17,14 @@ DecisionTree::DecisionTree(std::string attribute, std::vector<std::vector<std::s
     root = new DecisionNode(attributeIndex, data[0].size() - 1, findMin(), findMax(), 0, false, "root", data);
 }
 
+
+
 DecisionTree::~DecisionTree() {
     delete root;
+}
+
+std::string DecisionTree::analyze(double val) {
+    return root->analyze(val);
 }
 
 double DecisionTree::findMin() {

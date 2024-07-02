@@ -1,6 +1,7 @@
 #include <iostream>
+#include "RandomForest.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    RandomForest* forest = new RandomForest();
+    forest->predict();
 }

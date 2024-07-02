@@ -6,16 +6,20 @@
 #define DECISION_TREE_RANDOMFOREST_H
 
 #include "DecisionTree.h"
+#include <deque>
+#include <vector>
 
 class RandomForest {
 public:
     RandomForest();
     ~RandomForest() = default;
 
-    std::vector<std::vector<std::string>> loadFile(std::string& filename);
+    void predict();
+    std::deque<std::deque<char*>> loadFile(std::string& filename);
 private:
     std::vector<DecisionTree> trees;
-    std::vector<std::vector<std::string>> data;
+    std::deque<std::deque<char*>> data;
+    std::vector<std::string> attributes;
 };
 
 

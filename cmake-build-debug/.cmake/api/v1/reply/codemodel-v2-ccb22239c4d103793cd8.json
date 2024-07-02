@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/allan/Personal_Developments/decision_tree/cmake-build-debug",
-		"source" : "C:/Users/allan/Personal_Developments/decision_tree"
+		"build" : "C:/Users/allan/Personal_Developments/random-forest/cmake-build-debug",
+		"source" : "C:/Users/allan/Personal_Developments/random-forest"
 	},
 	"version" : 
 	{
