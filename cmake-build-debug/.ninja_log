@@ -1,3 +1,7 @@
 # ninja log v5
 0	248	7415093381554110	CMakeFiles/untitled.dir/main.cpp.obj	65d5d39a372f7a32
 249	348	7415093382523219	untitled.exe	261af487ef5b78b9
+6	435	7415929621436060	CMakeFiles/decision_tree.dir/DecisionTree.cpp.obj	c95199095e00dec6
+10	456	7415929621627218	CMakeFiles/decision_tree.dir/DecisionNode.cpp.obj	663abc22eb981f1b
+1	916	7415929626256037	CMakeFiles/decision_tree.dir/main.cpp.obj	73564fc1e4463478
+917	1140	7415929628442043	decision_tree.exe	356110657da4d7af
