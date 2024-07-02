@@ -9,6 +9,8 @@ set(SOURCES
     DecisionTree.h
     DecisionNode.cpp
     DecisionNode.h
+    RandomForest.cpp
+    RandomForest.h
 )
 
 add_executable(decision_tree ${SOURCES})

@@ -11,14 +11,13 @@
 
 class DecisionTree {
 public:
-    DecisionTree(std::string, std::string, std::vector<std::vector<std::string>>);
+    DecisionTree(std::string, std::vector<std::vector<std::string>>);
     ~DecisionTree();
 
     double findMax();
     double findMin();
 private:
     std::string attribute;
-    std::string type;
     DecisionNode* root;
     std::vector<std::vector<std::string>> data;
     uint32_t attributeIndex;

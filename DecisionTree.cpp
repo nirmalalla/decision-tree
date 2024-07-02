@@ -6,9 +6,8 @@
 #include "DecisionNode.h"
 #include <algorithm>
 
-DecisionTree::DecisionTree(std::string attribute, std::string type, std::vector<std::vector<std::string>> data) {
+DecisionTree::DecisionTree(std::string attribute, std::vector<std::vector<std::string>> data) {
     this->attribute = attribute;
-    this->type = type;
     this->data = data;
 
     auto attributeIndexIterator = std::find(data[0].begin(), data[0].end(), attribute);
