@@ -11,16 +11,18 @@
 
 class DecisionTree {
 public:
-    DecisionTree(std::string, std::deque<std::deque<char*>>);
-    ~DecisionTree();
+    DecisionTree(std::string, std::vector<std::vector<std::string>>);
+    ~DecisionTree() = default;
 
     double findMax();
     double findMin();
+    uint32_t findIndex(std::vector<std::vector<std::string>>);
+
     std::string analyze(double val);
 private:
     std::string attribute;
     DecisionNode* root;
-    std::deque<std::deque<char*>> data;
+    std::vector<std::vector<std::string>> data;
     uint32_t attributeIndex;
 };
 

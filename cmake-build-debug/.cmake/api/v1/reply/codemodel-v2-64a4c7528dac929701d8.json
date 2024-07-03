@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "decision_tree",
+					"name" : "random-forest",
 					"targetIndexes" : 
 					[
 						0
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "decision_tree::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-decision_tree-Debug-38b1847c55909f866ef9.json",
+					"jsonFile" : "target-decision_tree-Debug-34383abeab5ef15277bf.json",
 					"name" : "decision_tree",
 					"projectIndex" : 0
 				}

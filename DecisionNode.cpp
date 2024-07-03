@@ -8,7 +8,7 @@
 #include <limits>
 
 DecisionNode::DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double bottom, double top, uint32_t depth, bool leaf,
-                           std::string type, std::deque<std::deque<char*>>& data) {
+                           std::string type, std::vector<std::vector<std::string>>& data) {
     this->attributeIndex = attributeIndex;
     this->nameIndex = nameIndex;
     this->bottom = bottom;
@@ -18,11 +18,6 @@ DecisionNode::DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double b
     this->type = type;
     this->data = data;
     findSplit();
-}
-
-DecisionNode::~DecisionNode() {
-    delete left;
-    delete right;
 }
 
 std::string DecisionNode::analyze(double val) {

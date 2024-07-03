@@ -9,14 +9,15 @@
 #include <deque>
 #include <cstdint>
 #include <map>
+#include <vector>
 
 class DecisionNode {
 public:
     const uint32_t MAX_DEPTH = 10;
 
     DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double bottom,
-                 double top, uint32_t depth, bool leaf, std::string type, std::deque<std::deque<char*>>& data);
-    ~DecisionNode();
+                 double top, uint32_t depth, bool leaf, std::string type, std::vector<std::vector<std::string>>& data);
+    ~DecisionNode() = default;
 
     double giniImpurity(double, bool);
     void findSplit();
@@ -35,7 +36,7 @@ private:
     bool root;
     double split;
     std::string type;
-    std::deque<std::deque<char*>> data;
+    std::vector<std::vector<std::string>> data;
 };
 
 

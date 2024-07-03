@@ -15,10 +15,10 @@ public:
     ~RandomForest() = default;
 
     void predict();
-    std::deque<std::deque<char*>> loadFile(std::string& filename);
+    std::vector<std::vector<std::string>> getFile(std::string& filename);
 private:
     std::vector<DecisionTree> trees;
-    std::deque<std::deque<char*>> data;
+    std::vector<std::vector<std::string>> data;
     std::vector<std::string> attributes;
 };
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(decision_tree)
+project(random-forest)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -11,6 +11,7 @@ set(SOURCES
     DecisionNode.h
     RandomForest.cpp
     RandomForest.h
+        cmake-build-debug/iris.csv
 )
 
 add_executable(decision_tree ${SOURCES})

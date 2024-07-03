@@ -9,18 +9,17 @@
 #include <string>
 #include <deque>
 #include <vector>
-#include <cstring>
 
 
 RandomForest::RandomForest() {
     std::string filename = "iris.csv";
-    data = loadFile(filename);
-    std::deque<std::deque<char*>> tmpData(data.begin() + 1, data.end());
+    data = getFile(filename);
 
     uint32_t count = 1;
+
     for (auto cur = data[0].begin(); cur != data[0].end() - 1; ++cur){
         attributes.push_back(*cur);
-        trees.push_back(DecisionTree(*cur, tmpData));
+        trees.push_back(DecisionTree(*cur, data));
         std::cout << "Tree #" + std::to_string(count) + " trained." << std::endl;
         ++count;
     }
@@ -28,10 +27,10 @@ RandomForest::RandomForest() {
 }
 
 void RandomForest::predict() {
-    std::deque<char*> inputs;
+    std::deque<std::string> inputs;
 
     for (auto cur = attributes.begin(); cur != attributes.end(); ++cur){
-        char* tmp;
+        std::string tmp;
         std::cout << "Enter the " + *cur + ": " << std::endl;
         std::cin >> tmp;
         inputs.push_back(tmp);
@@ -63,9 +62,8 @@ void RandomForest::predict() {
     std::cout << maxType;
 }
 
-
-std::deque<std::deque<char*>> RandomForest::loadFile(std::string& filename) {
-    std::deque<std::deque<char*>> data;
+std::vector<std::vector<std::string>> RandomForest::getFile(std::string& filename) {
+    std::vector<std::vector<std::string>> data;
 
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -75,14 +73,11 @@ std::deque<std::deque<char*>> RandomForest::loadFile(std::string& filename) {
 
     std::string line;
     while (std::getline(file, line)) {
-        std::deque<char*> row;
+        std::vector<std::string> row;
         std::istringstream iss(line);
         std::string field;
         while (std::getline(iss, field, ',')) {
-            // Allocate memory for the field
-            char* fieldCopy = new char[field.size() + 1];
-            std::strcpy(fieldCopy, field.c_str()); // Copy data to the allocated memory
-            row.push_back(fieldCopy);
+            row.push_back(field);
         }
         data.push_back(row);
     }
