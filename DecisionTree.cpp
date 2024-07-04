@@ -5,7 +5,7 @@
 #include "DecisionTree.h"
 #include "DecisionNode.h"
 #include <algorithm>
-#include <deque>
+#include <limits>
 
 DecisionTree::DecisionTree(std::string attribute, std::vector<std::vector<std::string>> data) {
     this->attribute = attribute;
@@ -22,7 +22,7 @@ std::string DecisionTree::analyze(double val) {
 }
 
 double DecisionTree::findMin() {
-    double min = 0.0;
+    double min = std::numeric_limits<double>::max();
 
     for (auto cur = data.begin(); cur != data.end(); ++cur){
         if (std::stod((*cur)[attributeIndex]) < min){

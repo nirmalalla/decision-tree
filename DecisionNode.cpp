@@ -63,15 +63,15 @@ void DecisionNode::findSplit() {
         determineClass();
     }else{
         double minImpurity = std::numeric_limits<double>::max();
-        double minSplit = 0.0;
+        double minSplit = std::numeric_limits<double>::max();
 
-        for (uint32_t i = 1; i < 11; ++i){
-            double beforeImpurity = giniImpurity(((top - bottom) / 10) * i, true);
-            double afterImpurity = giniImpurity(((top - bottom) / 10) * i, false);
+        for (uint32_t i = 1; i < 6; ++i){
+            double beforeImpurity = giniImpurity(((top - bottom) / 5) * i + bottom, true);
+            double afterImpurity = giniImpurity(((top - bottom) / 5) * i + bottom, false);
 
             if (beforeImpurity + afterImpurity < minImpurity){
                 minImpurity = beforeImpurity + afterImpurity;
-                minSplit = ((top - bottom) / 10) * i;
+                minSplit = ((top - bottom) / 5) * i + bottom;
             }
 
         }
