@@ -1,7 +1,7 @@
-#include <iostream>
 #include "RandomForest.h"
+#include <iostream>
 
 int main() {
-    RandomForest* forest = new RandomForest();
-    forest->predict();
+  RandomForest *forest = new RandomForest();
+  forest->predict();
 }

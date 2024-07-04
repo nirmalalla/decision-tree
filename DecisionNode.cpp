@@ -3,107 +3,113 @@
 //
 
 #include "DecisionNode.h"
+#include <limits>
 #include <map>
 #include <string>
-#include <limits>
 
-DecisionNode::DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double bottom, double top, uint32_t depth, bool leaf,
-                           std::string type, std::vector<std::vector<std::string>>& data) {
-    this->attributeIndex = attributeIndex;
-    this->nameIndex = nameIndex;
-    this->bottom = bottom;
-    this->top = top;
-    this->depth = depth;
-    this->leaf = leaf;
-    this->type = type;
-    this->data = data;
-    findSplit();
+DecisionNode::DecisionNode(uint32_t attributeIndex, uint32_t nameIndex,
+                           double bottom, double top, uint32_t depth, bool leaf,
+                           std::string type,
+                           std::vector<std::vector<std::string>> &data) {
+  this->attributeIndex = attributeIndex;
+  this->nameIndex = nameIndex;
+  this->bottom = bottom;
+  this->top = top;
+  this->depth = depth;
+  this->leaf = leaf;
+  this->type = type;
+  this->data = data;
+  findSplit();
 }
 
 std::string DecisionNode::analyze(double val) {
-    if (leaf){
-        return type;
-    }else{
-        if (val <= split){
-            return left->analyze(val);
-        }else{
-            return right->analyze(val);
-        }
+  if (leaf) {
+    return type;
+  } else {
+    if (val <= split) {
+      return left->analyze(val);
+    } else {
+      return right->analyze(val);
     }
+  }
 }
 
 double DecisionNode::giniImpurity(double tmpSplit, bool before) {
-    std::map<std::string, uint32_t> counts;
-    uint32_t total = 0;
+  std::map<std::string, uint32_t> counts;
+  uint32_t total = 0;
 
-    for (auto cur = data.begin(); cur != data.end(); ++cur) {
-        double value = std::stod((*cur)[attributeIndex]);
-        if (((before && value <= tmpSplit) || (!before && value > tmpSplit)) && value <= top && value >= bottom) {
-            ++counts[(*cur)[nameIndex]];
-            ++total;
-        }
+  for (auto cur = data.begin(); cur != data.end(); ++cur) {
+    double value = std::stod((*cur)[attributeIndex]);
+    if (((before && value <= tmpSplit) || (!before && value > tmpSplit)) &&
+        value <= top && value >= bottom) {
+      ++counts[(*cur)[nameIndex]];
+      ++total;
     }
+  }
 
-    if (total == 0){
-        return 0.0;
-    }
+  if (total == 0) {
+    return 0.0;
+  }
 
-    double impurity = 0.0;
+  double impurity = 0.0;
 
-    for (auto cur = counts.begin(); cur != counts.end(); ++cur){
-        double proportion = static_cast<double>(cur->second) / total;
-        impurity += proportion * (1 - proportion);
-    }
+  for (auto cur = counts.begin(); cur != counts.end(); ++cur) {
+    double proportion = static_cast<double>(cur->second) / total;
+    impurity += proportion * (1 - proportion);
+  }
 
-    return impurity;
+  return impurity;
 }
 
 void DecisionNode::findSplit() {
-    if (leaf){
-        determineClass();
-    }else{
-        double minImpurity = std::numeric_limits<double>::max();
-        double minSplit = std::numeric_limits<double>::max();
+  if (leaf) {
+    determineClass();
+  } else {
+    double minImpurity = std::numeric_limits<double>::max();
+    double minSplit = std::numeric_limits<double>::max();
 
-        for (uint32_t i = 1; i < 6; ++i){
-            double beforeImpurity = giniImpurity(((top - bottom) / 5) * i + bottom, true);
-            double afterImpurity = giniImpurity(((top - bottom) / 5) * i + bottom, false);
+    for (uint32_t i = 1; i < 6; ++i) {
+      double beforeImpurity =
+          giniImpurity(((top - bottom) / 5) * i + bottom, true);
+      double afterImpurity =
+          giniImpurity(((top - bottom) / 5) * i + bottom, false);
 
-            if (beforeImpurity + afterImpurity < minImpurity){
-                minImpurity = beforeImpurity + afterImpurity;
-                minSplit = ((top - bottom) / 5) * i + bottom;
-            }
-
-        }
-
-        bool isLeaf = (depth + 1 == MAX_DEPTH || minImpurity == 0);
-        split = minSplit;
-
-        left = new DecisionNode(attributeIndex, nameIndex, bottom, split, depth + 1, isLeaf, "before", data);
-        right = new DecisionNode(attributeIndex, nameIndex, split, top, depth + 1, isLeaf, "after", data);
+      if (beforeImpurity + afterImpurity < minImpurity) {
+        minImpurity = beforeImpurity + afterImpurity;
+        minSplit = ((top - bottom) / 5) * i + bottom;
+      }
     }
+
+    bool isLeaf = (depth + 1 == MAX_DEPTH || minImpurity == 0);
+    split = minSplit;
+
+    left = new DecisionNode(attributeIndex, nameIndex, bottom, split, depth + 1,
+                            isLeaf, "before", data);
+    right = new DecisionNode(attributeIndex, nameIndex, split, top, depth + 1,
+                             isLeaf, "after", data);
+  }
 }
 
 void DecisionNode::determineClass() {
-    std::map<std::string, uint32_t> typeCounts;
+  std::map<std::string, uint32_t> typeCounts;
 
-    for (auto cur = data.begin(); cur != data.end(); ++cur){
-        double value = std::stod((*cur)[attributeIndex]);
+  for (auto cur = data.begin(); cur != data.end(); ++cur) {
+    double value = std::stod((*cur)[attributeIndex]);
 
-        if (value >= bottom && value <= top){
-            ++typeCounts[(*cur)[nameIndex]];
-        }
+    if (value >= bottom && value <= top) {
+      ++typeCounts[(*cur)[nameIndex]];
     }
+  }
 
-    uint32_t max = 0;
-    std::string maxType;
+  uint32_t max = 0;
+  std::string maxType;
 
-    for (auto cur = typeCounts.begin(); cur != typeCounts.end(); ++cur){
-        if (cur->second > max){
-            max = cur->second;
-            maxType = cur->first;
-        }
+  for (auto cur = typeCounts.begin(); cur != typeCounts.end(); ++cur) {
+    if (cur->second > max) {
+      max = cur->second;
+      maxType = cur->first;
     }
+  }
 
-    type = maxType;
+  type = maxType;
 }

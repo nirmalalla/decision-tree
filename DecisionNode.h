@@ -5,39 +5,39 @@
 #ifndef DECISION_TREE_DECISIONNODE_H
 #define DECISION_TREE_DECISIONNODE_H
 
-#include <string>
-#include <deque>
 #include <cstdint>
+#include <deque>
 #include <map>
+#include <string>
 #include <vector>
 
 class DecisionNode {
 public:
-    const uint32_t MAX_DEPTH = 10;
+  const uint32_t MAX_DEPTH = 10;
 
-    DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double bottom,
-                 double top, uint32_t depth, bool leaf, std::string type, std::vector<std::vector<std::string>>& data);
-    ~DecisionNode() = default;
+  DecisionNode(uint32_t attributeIndex, uint32_t nameIndex, double bottom,
+               double top, uint32_t depth, bool leaf, std::string type,
+               std::vector<std::vector<std::string>> &data);
+  ~DecisionNode() = default;
 
-    double giniImpurity(double, bool);
-    void findSplit();
-    void determineClass();
-    std::string analyze(double val);
+  double giniImpurity(double, bool);
+  void findSplit();
+  void determineClass();
+  std::string analyze(double val);
 
 private:
-    uint32_t attributeIndex;
-    uint32_t nameIndex;
-    double bottom;
-    double top;
-    uint32_t depth;
-    DecisionNode* left;
-    DecisionNode* right;
-    bool leaf;
-    bool root;
-    double split;
-    std::string type;
-    std::vector<std::vector<std::string>> data;
+  uint32_t attributeIndex;
+  uint32_t nameIndex;
+  double bottom;
+  double top;
+  uint32_t depth;
+  DecisionNode *left;
+  DecisionNode *right;
+  bool leaf;
+  bool root;
+  double split;
+  std::string type;
+  std::vector<std::vector<std::string>> data;
 };
 
-
-#endif //DECISION_TREE_DECISIONNODE_H
+#endif // DECISION_TREE_DECISIONNODE_H

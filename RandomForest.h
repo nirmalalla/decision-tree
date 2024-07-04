@@ -11,16 +11,16 @@
 
 class RandomForest {
 public:
-    RandomForest();
-    ~RandomForest() = default;
+  RandomForest();
+  ~RandomForest() = default;
 
-    void predict();
-    std::vector<std::vector<std::string>> getFile(std::string& filename);
+  void predict();
+  std::vector<std::vector<std::string>> getFile(std::string &filename);
+
 private:
-    std::vector<DecisionTree> trees;
-    std::vector<std::vector<std::string>> data;
-    std::vector<std::string> attributes;
+  std::vector<DecisionTree> trees;
+  std::vector<std::vector<std::string>> data;
+  std::vector<std::string> attributes;
 };
 
-
-#endif //DECISION_TREE_RANDOMFOREST_H
+#endif // DECISION_TREE_RANDOMFOREST_H
