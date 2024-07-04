@@ -14,7 +14,7 @@ public:
   /**
    * Default Constructor
    */
-  RandomForest();
+  RandomForest(std::string);
 
   ~RandomForest() = default;
 

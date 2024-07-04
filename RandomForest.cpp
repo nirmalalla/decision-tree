@@ -10,8 +10,7 @@
 #include <string>
 #include <vector>
 
-RandomForest::RandomForest() {
-  std::string filename = "iris.csv";
+RandomForest::RandomForest(std::string filename) {
   data = getFile(filename);
 
   uint32_t count = 1;
@@ -25,39 +24,48 @@ RandomForest::RandomForest() {
 }
 
 void RandomForest::predict() {
-  std::deque<std::string> inputs;
+  bool running = true;
 
-  for (auto cur = attributes.begin(); cur != attributes.end(); ++cur) {
-    std::string tmp;
-    std::cout << "Enter the " + *cur + ": " << std::endl;
-    std::cin >> tmp;
-    inputs.push_back(tmp);
+  while (running){
+      std::vector<std::string> inputs;
+
+      for (auto cur = attributes.begin(); cur != attributes.end(); ++cur) {
+          std::string tmp;
+          std::cout << "Enter the " + *cur + ": " << std::endl;
+          std::cin >> tmp;
+          inputs.push_back(tmp);
+      }
+
+      std::vector<std::string> predictions;
+
+      for (uint32_t i = 0; i < inputs.size(); ++i) {
+          double val = std::stod(inputs[i]);
+          predictions.push_back(trees[i].analyze(val));
+      }
+
+      std::map<std::string, uint32_t> typeCounts;
+
+      for (auto cur = predictions.begin(); cur != predictions.end(); ++cur) {
+          ++typeCounts[*cur];
+      }
+
+      uint32_t max = 0;
+      std::string maxType;
+
+      for (auto cur = typeCounts.begin(); cur != typeCounts.end(); ++cur) {
+          if (cur->second > max) {
+              max = cur->second;
+              maxType = cur->first;
+          }
+      }
+
+      std::cout << maxType << std::endl;
+      std::string runAgain;
+      std::cout << "Rerun Program? (y/n)" << std::endl;
+      std::cin >> runAgain;
+
+      running = runAgain == "y" || runAgain == "Y";
   }
-
-  std::vector<std::string> predictions;
-
-  for (uint32_t i = 0; i < inputs.size(); ++i) {
-    double val = std::stod(inputs[i]);
-    predictions.push_back(trees[i].analyze(val));
-  }
-
-  std::map<std::string, uint32_t> typeCounts;
-
-  for (auto cur = predictions.begin(); cur != predictions.end(); ++cur) {
-    ++typeCounts[*cur];
-  }
-
-  uint32_t max = 0;
-  std::string maxType;
-
-  for (auto cur = typeCounts.begin(); cur != typeCounts.end(); ++cur) {
-    if (cur->second > max) {
-      max = cur->second;
-      maxType = cur->first;
-    }
-  }
-
-  std::cout << maxType;
 }
 
 std::vector<std::vector<std::string>>

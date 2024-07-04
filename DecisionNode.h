@@ -17,9 +17,12 @@ public:
 
   /**
    * Default Constructor
-   * @param attributeIndex -- uint32_t representing the index of the attribute in the vector
-   * @param nameIndex -- uint32_t representing the index of the class/name in the vector
-   * @param bottom -- double representing the bottom/minimum data points for this node
+   * @param attributeIndex -- uint32_t representing the index of the attribute
+   * in the vector
+   * @param nameIndex -- uint32_t representing the index of the class/name in
+   * the vector
+   * @param bottom -- double representing the bottom/minimum data points for
+   * this node
    * @param top -- double representing the top/maximum data points for this node
    * @param depth -- uint32_t representing the depth of the node
    * @param leaf -- bool representing the node's leaf status
